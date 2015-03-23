@@ -15,7 +15,27 @@
  
   init();
   animate();
-  
+
+  // Set up scene
+  function init() {
+ 
+    // Create scene and set scene size.
+    scene = new THREE.Scene();
+    var WIDTH = window.innerWidth,
+        HEIGHT = window.innerHeight;
+ 
+    // Create a renderer and add it to the DOM.
+    renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setSize(WIDTH, HEIGHT);
+    document.body.appendChild(renderer.domElement);
+
+    // Create camera, zoom out from model a bit, add it to the scene.
+    camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 0.1, 20000);
+    camera.position.set(0,6,0);
+    scene.add(camera); 
+  }
+
+
   </script>
  
 </body>
