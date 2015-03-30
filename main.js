@@ -68,7 +68,31 @@
             // object.position.y = -5;
             // object.position.z = 5;
             scene.add(object);
-        }, onProgress, onError );
+        }, onProgress, onError);
+
+        // Sphere
+        var radius = 1,
+            segments = 16,
+            rings = 16;
+
+        // Sphere's material
+        var sphereMaterial =
+            new THREE.MeshLambertMaterial({
+                color: 0xCC0000
+            });
+
+        var sphere = new THREE.Mesh(
+            new THREE.SphereGeometry(
+                radius,
+                segments,
+                rings),
+            sphereMaterial);
+
+        sphere.position.x = 10;
+        sphere.position.y = 5;
+
+        // add the sphere to the scene
+        scene.add(sphere);
 
         // Add OrbitControls so that we can pan around with the mouse.
         controls = new THREE.OrbitControls(camera, renderer.domElement);
