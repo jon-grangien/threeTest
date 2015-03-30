@@ -26,9 +26,12 @@
         document.body.appendChild(renderer.domElement);
 
         // Create camera, zoom out from model a bit, add it to the scene.
-        camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 0.1, 20000);
-        camera.position.set(0,6,0);
+        camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 0.1, 10000);
+        // camera.position.set(0,0.1,0);
         scene.add(camera); 
+        camera.position.z = 10;
+        camera.position.y = 25;
+        camera.position.x = -7;
 
         // Create an event listener that resizes the renderer with the browser window.
         window.addEventListener('resize', function() {
@@ -57,12 +60,13 @@
 
         THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
-        // Load in the mesh and add it to the scene.
+
+        // Giraffe
         var loader = new THREE.OBJMTLLoader();
         loader.load( "obj/Giraffe.obj", "textures/Giraffe.mtl", function(object){ 
-            object.rotation.x = 30;
-            object.position.y = -20;
-            object.position.z = 5;
+            // object.rotation.x = 30;
+            // object.position.y = -5;
+            // object.position.z = 5;
             scene.add(object);
         }, onProgress, onError );
 
