@@ -60,7 +60,7 @@
 
     // Load in the mesh and add it to the scene.
     var loader = new THREE.OBJLoader(manager);
-    loader.load( "obj/planewithhole.obj", function(object){
+    loader.load( "obj/goose.obj", function(object){
       
     	object.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh ) {
