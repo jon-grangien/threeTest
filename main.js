@@ -64,9 +64,6 @@
         // Giraffe
         var loader = new THREE.OBJMTLLoader();
         loader.load( "obj/Giraffe.obj", "textures/Giraffe.mtl", function(object){ 
-            // object.rotation.x = 30;
-            // object.position.y = -5;
-            // object.position.z = 5;
             scene.add(object);
         }, onProgress, onError);
 
@@ -74,6 +71,36 @@
         sphere1.position.x = 10;
         sphere1.position.y = 5;
         scene.add(sphere1);
+
+        sphere2 = createSphere(1.5, 16, 16, 0x00BB00);
+        sphere2.position.x = -10;
+        sphere2.position.y = 3;
+        sphere2.position.z = 8;
+        scene.add(sphere2);
+
+        sphere3 = createSphere(0.5, 16, 16, 0x00BBCC);
+        sphere3.position.x = -3;
+        sphere3.position.y = 6;
+        sphere3.position.z = -2;
+        scene.add(sphere3);
+
+        sphere4 = createSphere(1.2, 16, 16, 0xBBDDAA);
+        sphere4.position.x = -4;
+        sphere4.position.y = -2;
+        sphere4.position.z = 3;
+        scene.add(sphere4);
+
+        sphere5 = createSphere(1.8, 16, 16, 0xDD00DD);
+        sphere5.position.x = 4;
+        sphere5.position.y = 5;
+        sphere5.position.z = 11;
+        scene.add(sphere5);
+
+        box1 = createBox(2, 2, 8, 16, 16, 16, 0xDDBBCC);
+        // box1.position.x = 2;
+        box1.position.y = -1;
+        // box1.position.z = 9;
+        scene.add(box1);
 
         // Add OrbitControls so that we can pan around with the mouse.
         controls = new THREE.OrbitControls(camera, renderer.domElement);
