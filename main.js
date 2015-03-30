@@ -1,5 +1,8 @@
-// Set up the scene, camera, renderer as variables.
   var scene, camera, renderer;
+
+  // useful for event listeners
+  var windowHalfX = window.innerWidth / 2;
+  var windowHalfY = window.innerHeight / 2;
  
   init();
   animate();
@@ -19,6 +22,7 @@
  
     // Create a renderer and add it to the DOM.
     renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize(WIDTH, HEIGHT);
     document.body.appendChild(renderer.domElement);
 
@@ -37,18 +41,20 @@
       camera.updateProjectionMatrix();
     });
 
+    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
     // Create a light, set its position, and add it to the scene.
     var light = new THREE.PointLight(0xffffff);
     light.position.set(-100,200,100);
     scene.add(light);
 
     // loader manager
-    var manager = new THREE.LoadingManager();
-    manager.onProgress = function ( item, loaded, total ) {
+  //   var manager = new THREE.LoadingManager();
+  //   manager.oinProgress = function ( item, loaded, total ) {
 
-		console.log( item, loaded, total );
+		// console.log( item, loaded, total );
 
-	};
+  //   };
     
     // texture
  //    var texture = new THREE.Texture();
@@ -58,22 +64,38 @@
 	// 	texture.needsUpdate = true;
 	// } );
 
-    // Load in the mesh and add it to the scene.
-    var loader = new THREE.OBJLoader(manager);
-    loader.load( "obj/goose.obj", function(object){
+    var onProgress = function ( xhr ) {
+        if ( xhr.lengthComputable ) {
+          var percentComplete = xhr.loaded / xhr.total * 100;
+          console.log( Math.round(percentComplete, 2) + '% downloaded' );
+        }
+      };
       
-    	object.traverse( function ( child ) {
-			if ( child instanceof THREE.Mesh ) {
-      			//var texture1 = new THREE.MeshLambertMaterial({color: 0x55B663});
-				//child.material.map = texture1;
-			}
-		} );
-		//object.position.y = -80;
+    var onError = function ( xhr ) {
+    };
+
+    THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+
+    // Load in the mesh and add it to the scene.
+    var loader = new THREE.OBJMTLLoader();
+    loader.load( "obj/Giraffe.obj", "obj/Giraffe.mtl", function(object){
+      
+    	// object.traverse( function ( child ) {
+			// if ( child instanceof THREE.Mesh ) {
+   //    			//var texture1 = new THREE.MeshLambertMaterial({color: 0x55B663});
+			// 	//child.material.map = texture1;
+			// }
+		
+    object.rotation.x = 30;
+    object.position.y = -20;
+    object.position.z = 5;
+
 		scene.add(object);
+    }, onProgress, onError );
 
       //mesh = new THREE.Mesh(geometry, material);
       //scene.add(mesh);
-    });
+    // });
 
     // Add OrbitControls so that we can pan around with the mouse.
     var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -86,5 +108,12 @@
  
     // Render the scene.
     renderer.render(scene, camera);
-    //controls.update();
+    // controls.update();
   	}
+
+    function onDocumentMouseMove( event ) {
+
+        mouseX = ( event.clientX - windowHalfX ) / 2;
+        mouseY = ( event.clientY - windowHalfY ) / 2;
+
+    }
