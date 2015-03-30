@@ -96,10 +96,20 @@
         sphere5.position.z = 11;
         scene.add(sphere5);
 
-        box1 = createBox(2, 2, 8, 16, 16, 16, 0xDDBBCC);
-        // box1.position.x = 2;
+        var moonLoader = new THREE.DDSLoader();
+        var moonMap = moonLoader.load('textures/skymoonfull.dds');
+        moonMap.anisotropy = 4;
+        var moonMaterial = new THREE.MeshBasicMaterial( { map: moonMap } );
+
+        var moon = new THREE.Mesh( new THREE.SphereGeometry( 800, 16, 16 ), moonMaterial );
+        moon.position.z = -1800;
+        moon.rotation.z = 3;
+        moon.rotation.y = 2;
+        moon.rotation.x = 0.3;
+        scene.add(moon);
+
+        box1 = createBox(2, 2, 8, 16, 16, 16, 0xBB00DD);
         box1.position.y = -1;
-        // box1.position.z = 9;
         scene.add(box1);
 
         // Add OrbitControls so that we can pan around with the mouse.
