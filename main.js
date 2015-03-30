@@ -70,29 +70,10 @@
             scene.add(object);
         }, onProgress, onError);
 
-        // Sphere
-        var radius = 1,
-            segments = 16,
-            rings = 16;
-
-        // Sphere's material
-        var sphereMaterial =
-            new THREE.MeshLambertMaterial({
-                color: 0xCC0000
-            });
-
-        var sphere = new THREE.Mesh(
-            new THREE.SphereGeometry(
-                radius,
-                segments,
-                rings),
-            sphereMaterial);
-
-        sphere.position.x = 10;
-        sphere.position.y = 5;
-
-        // add the sphere to the scene
-        scene.add(sphere);
+        sphere1 = createSphere(1, 16, 16, 0xCC0000);
+        sphere1.position.x = 10;
+        sphere1.position.y = 5;
+        scene.add(sphere1);
 
         // Add OrbitControls so that we can pan around with the mouse.
         controls = new THREE.OrbitControls(camera, renderer.domElement);
